@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crianza con Amor · Prototipo de aplicación móvil</title>
+<meta name="description" content="Prototipo de aplicación móvil para la crianza amorosa, respetuosa y con normas en la infancia. Trabajo de grado, Especialización en Comunicación Digital, UNIMINUTO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F6E8F;--pri-d:#1F4F68;--pri-l:#E4EFF5;--acc:#E7845E;--acc-l:#FCEDE6;--ok:#3E9A6A;--bg:#F7F5F1;--tx:#25313A;--tx2:#5D6B75;--ln:#E6E2DB}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav.nav{position:sticky;top:0;z-index:10;background:rgba(247,245,241,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--ln)}
+nav.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;text-decoration:none}
+.brand svg{width:28px;height:28px}
+.nav ul{display:flex;gap:26px;list-style:none;font-weight:700;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--tx2)}
+.nav ul a:hover{color:var(--pri)}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--pri);color:#fff;text-decoration:none;font-weight:800;padding:13px 22px;border-radius:40px;transition:.2s}
+.cta:hover{background:var(--pri-d)}
+.cta.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri)}
+.hero{padding:56px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.eyebrow{display:inline-block;background:var(--acc-l);color:#A9512E;font-weight:800;font-size:13px;letter-spacing:.6px;text-transform:uppercase;padding:6px 14px;border-radius:30px;margin-bottom:18px}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.08;font-weight:900;letter-spacing:-.5px;margin-bottom:18px}
+h1 em{font-style:normal;color:var(--pri)}
+.lead{font-size:19px;color:var(--tx2);max-width:540px;margin-bottom:28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.phone{justify-self:center;width:340px;height:700px;border-radius:46px;background:#1d252c;padding:34px 12px 14px;box-shadow:0 30px 60px rgba(31,79,104,.25);position:relative}
+.phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:70px;height:12px;border-radius:20px;background:#1d252c;z-index:2}
+.phone iframe{width:100%;height:100%;border:0;border-radius:26px;background:var(--bg)}
+.hint{text-align:center;color:var(--tx2);font-size:14px;margin-top:14px}
+section{padding:64px 0}
+.sec-h{max-width:720px;margin-bottom:34px}
+.sec-h small{color:var(--acc);font-weight:900;letter-spacing:.8px;text-transform:uppercase;font-size:13px}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.15;font-weight:900;margin:6px 0 12px}
+.sec-h p{color:var(--tx2);font-size:17px}
+.problem{background:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.box{background:var(--bg);border-radius:22px;padding:24px}
+.box .ic{font-size:30px;margin-bottom:10px}
+.box h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.box p{color:var(--tx2);font-size:15.5px}
+.stat{background:#fff;border-radius:22px;padding:26px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.stat b{display:block;font-size:44px;font-weight:900;color:var(--pri);line-height:1}
+.stat span{display:block;color:var(--tx2);font-size:15px;margin-top:8px}
+.bars{background:#fff;border-radius:22px;padding:26px;margin-top:20px}
+.bars h3{font-size:18px;font-weight:800;margin-bottom:16px}
+.br{display:grid;grid-template-columns:minmax(150px,330px) 1fr 54px;gap:14px;align-items:center;margin:10px 0;font-size:15px}
+.br .tr{height:14px;background:var(--pri-l);border-radius:10px;overflow:hidden}
+.br .tr i{display:block;height:100%;background:var(--pri);border-radius:10px}
+.br .v{font-weight:800;text-align:right}
+.feat{background:#fff;border-radius:22px;padding:24px;border-top:6px solid var(--pri)}
+.feat:nth-child(2){border-color:var(--acc)}.feat:nth-child(3){border-color:#C9483B}.feat:nth-child(4){border-color:var(--ok)}
+.feat h3{font-size:18px;font-weight:900;margin:8px 0 6px}
+.feat p{color:var(--tx2);font-size:15px}
+.feat a{display:inline-block;margin-top:12px;font-weight:800;color:var(--pri);text-decoration:none}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+.step{counter-increment:s;background:#fff;border-radius:22px;padding:24px;position:relative}
+.step::before{content:counter(s);width:38px;height:38px;border-radius:50%;background:var(--pri);color:#fff;font-weight:900;display:grid;place-items:center;margin-bottom:12px}
+.step h3{font-size:17px;font-weight:800;margin-bottom:6px}
+.step p{color:var(--tx2);font-size:15px}
+.team{background:var(--pri-d);color:#fff}
+.team .sec-h p,.team .sec-h small{color:#cfe2ec}
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.person{background:rgba(255,255,255,.08);border-radius:22px;padding:24px}
+.person h3{font-size:19px;font-weight:900}
+.person p{color:#cfe2ec;font-size:15px;margin-top:4px}
+footer{padding:28px 0;color:var(--tx2);font-size:14px;text-align:center}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .grid3,.grid4,.steps{grid-template-columns:1fr 1fr}
+  .nav ul{display:none}
+}
+@media (max-width:560px){
+  .grid3,.grid4,.steps,.people{grid-template-columns:1fr}
+  .phone{width:300px;height:610px}
+  .br{grid-template-columns:1fr 54px}.br .tr{grid-column:1/-1;order:3}
+  section{padding:48px 0}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="#"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.3-9.2C1.4 8.5 3.6 5 7 5c2 0 3.3 1.1 5 3 1.7-1.9 3-3 5-3 3.4 0 5.6 3.5 4.3 6.8C19.5 16.4 12 21 12 21z" fill="#E7845E"/></svg>Crianza con Amor</a>
+  <ul><li><a href="#problema">El reto</a></li><li><a href="#resultados">Lo que dicen las familias</a></li><li><a href="#app">La aplicación</a></li><li><a href="#proceso">Proceso</a></li><li><a href="#equipo">Equipo</a></li></ul>
+  <a class="cta" href="app.html">Abrir prototipo</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">Prototipo de aplicación móvil</span>
+    <h1>Criar con <em>amor, respeto</em> y normas claras, también en los momentos difíciles</h1>
+    <p class="lead">Una herramienta de apoyo para padres, madres y cuidadores de niños y niñas de 6 a 11 años, diseñada a partir de lo que las propias familias dijeron necesitar.</p>
+    <div class="btns"><a class="cta" href="app.html">Probar el prototipo →</a><a class="cta ghost" href="#resultados">Ver resultados</a></div>
+  </div>
+  <div>
+    <div class="phone" id="prototipo"><iframe id="proto" src="app.html" title="Prototipo navegable de Crianza con Amor" ></iframe></div>
+    <p class="hint">Prototipo navegable: toque las secciones para recorrerlo.</p>
+  </div>
+</div></header>
+
+<section class="problem" id="problema"><div class="wrap">
+  <div class="sec-h"><small>El reto</small><h2>La crianza ocurre hoy entre pantallas, prisas y pocas orientaciones</h2>
+  <p>Las familias quieren corregir sin violencia, poner límites y acompañar el uso de la tecnología, pero muchas veces no saben cómo hacerlo en el momento en que surge el conflicto.</p></div>
+  <div class="grid3">
+    <div class="box"><div class="ic">⚖️</div><h3>Crianza sin violencia</h3><p>Desde la Ley 2089 de 2021, Colombia prohíbe el castigo físico y los tratos humillantes. Las familias necesitan alternativas concretas.</p></div>
+    <div class="box"><div class="ic">📱</div><h3>Tecnología en casa</h3><p>Celulares, tabletas y videojuegos hacen parte de la vida diaria de niños y niñas, y generan nuevos conflictos en el hogar.</p></div>
+    <div class="box"><div class="ic">⏱️</div><h3>Apoyo cuando se necesita</h3><p>Las escuelas de padres son presenciales y con horarios. Una aplicación lleva la orientación al bolsillo del cuidador.</p></div>
+  </div>
+</div></section>
+
+<section id="resultados"><div class="wrap">
+  <div class="sec-h"><small>Lo que dicen las familias</small><h2>241 padres, madres y cuidadores respondieron la encuesta</h2>
+  <p>Familias de la Red de Escuelas de Formación Musical de Pasto y del Club Deportivo Real Talentos de Bogotá. Instrumento validado por cuatro expertos (promedio 4,7 sobre 5).</p></div>
+  <div class="grid4">
+    <div class="stat"><b>96,7 %</b><span>usaría una aplicación de apoyo a la crianza</span></div>
+    <div class="stat"><b>43,2 %</b><span>quiere estrategias para poner normas y límites sin violencia</span></div>
+    <div class="stat"><b>36,9 %</b><span>valora un botón de ayuda rápida para rabietas o conflictos</span></div>
+    <div class="stat"><b>40,7 %</b><span>prefiere la información organizada por situaciones</span></div>
+  </div>
+  <div class="bars"><h3>Situaciones en las que más piden apoyo (pregunta abierta)</h3>
+    <div class="br"><span>Uso de pantallas y tecnología</span><span class="tr"><i style="width:26.8%"></i></span><span class="v">26,8 %</span></div>
+    <div class="br"><span>Emociones, frustración y rabietas</span><span class="tr"><i style="width:24.6%"></i></span><span class="v">24,6 %</span></div>
+    <div class="br"><span>Responsabilidades, rutinas y hábitos</span><span class="tr"><i style="width:22.8%"></i></span><span class="v">22,8 %</span></div>
+    <div class="br"><span>Obediencia, normas y límites</span><span class="tr"><i style="width:20.6%"></i></span><span class="v">20,6 %</span></div>
+    <div class="br"><span>Pares, colegio y acoso escolar</span><span class="tr"><i style="width:15.8%"></i></span><span class="v">15,8 %</span></div>
+  </div>
+</div></section>
+
+<section id="app" style="background:#fff"><div class="wrap">
+  <div class="sec-h"><small>La aplicación</small><h2>Cuatro secciones que responden a los requerimientos de las familias</h2>
+  <p>Cada sección traduce un resultado de la encuesta en una decisión de contenido o de funcionamiento.</p></div>
+  <div class="grid4">
+    <div class="feat"><span style="font-size:28px">🏠</span><h3>Inicio</h3><p>Buscador de dudas, consejo y actividad del día, y avance de la familia con metas semanales.</p><a href="#prototipo" data-screen="inicio">Ver pantalla →</a></div>
+    <div class="feat"><span style="font-size:28px">🧭</span><h3>Situaciones</h3><p>Pautas organizadas por tema y por edad: pantallas, emociones, normas, rutinas, colegio y amigos.</p><a href="#prototipo" data-screen="situaciones">Ver pantalla →</a></div>
+    <div class="feat"><span style="font-size:28px">⚡</span><h3>Ayuda rápida</h3><p>Pasos breves para actuar con calma y firmeza en el momento del conflicto, y líneas de ayuda.</p><a href="#prototipo" data-screen="ayuda">Ver pantalla →</a></div>
+    <div class="feat"><span style="font-size:28px">👨‍👩‍👧</span><h3>Mi familia</h3><p>Actividades para compartir, rutinas con recordatorios y el acuerdo familiar de pantallas.</p><a href="#prototipo" data-screen="familia">Ver pantalla →</a></div>
+  </div>
+</div></section>
+
+<section id="proceso"><div class="wrap">
+  <div class="sec-h"><small>Proceso</small><h2>Un diseño centrado en las familias</h2></div>
+  <div class="steps">
+    <div class="step"><h3>Fundamentación</h3><p>Revisión de antecedentes, teoría de estilos parentales, parentalidad positiva y marco legal colombiano.</p></div>
+    <div class="step"><h3>Encuesta validada</h3><p>Cuestionario de 11 preguntas validado por cuatro expertos y aplicado en línea y en papel.</p></div>
+    <div class="step"><h3>Requerimientos</h3><p>Matriz de 14 requerimientos de contenido, funcionales y de usabilidad priorizados.</p></div>
+    <div class="step"><h3>Prototipo</h3><p>Prototipo web navegable que simula la aplicación móvil, listo para pruebas con usuarios.</p></div>
+  </div>
+</div></section>
+
+<section class="team" id="equipo"><div class="wrap">
+  <div class="sec-h"><small>Equipo</small><h2>Trabajo de grado · Especialización en Comunicación Digital</h2>
+  <p>Corporación Universitaria Minuto de Dios – UNIMINUTO · 2026. Director: David Reinaldo Jojoa Niño.</p></div>
+  <div class="people">
+    <div class="person"><h3>David Fernando Delgado Nichoy</h3><p>Ingeniería y desarrollo de plataformas digitales · Pasto</p></div>
+    <div class="person"><h3>Vivian Yamile Rueda Bernal</h3><p>Promoción de la crianza sin violencia y medios digitales · Bogotá</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Prototipo académico sin fines comerciales. Los contenidos son orientaciones generales y no reemplazan la atención profesional.</div></footer>
+<script>
+document.querySelectorAll('[data-screen]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  const f=document.getElementById('proto');
+  f.contentWindow.postMessage({go:a.dataset.screen},'*');
+  document.getElementById('prototipo').scrollIntoView({behavior:'smooth',block:'center'});
+}));
+</script>
+</body>
+</html>

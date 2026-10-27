@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crianza con Amor · Prototipo</title>
+<meta name="description" content="Prototipo navegable de la aplicación móvil Crianza con Amor: apoyo a padres, madres y cuidadores en pautas de crianza amorosa, respetuosa y con normas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pri:#2F6E8F; --pri-d:#245670; --pri-l:#E4EFF5;
+  --acc:#E7845E; --acc-l:#FCEDE6;
+  --sos:#C9483B; --ok:#3E9A6A; --ok-l:#E3F3EA;
+  --bg:#F7F5F1; --card:#FFFFFF; --tx:#25313A; --tx2:#5D6B75; --ln:#E6E2DB;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;font-size:16px}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.app{max-width:440px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--bg);position:relative}
+header.top{background:var(--pri);color:#fff;padding:18px 20px 22px;border-radius:0 0 26px 26px;position:sticky;top:0;z-index:5}
+header.top .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+header.top h1{font-size:22px;font-weight:800;letter-spacing:.2px}
+header.top p{opacity:.85;font-size:14px;margin-top:2px}
+.back{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:20px}
+.logo{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center}
+main{flex:1;padding:18px 16px 110px}
+.screen{display:none;animation:fade .25s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.search{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--ln);border-radius:30px;padding:11px 16px;margin:-34px 0 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);position:relative;z-index:6}
+.search input{border:0;outline:0;font:inherit;flex:1;background:none;color:var(--tx)}
+.card{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.card h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.card p{color:var(--tx2);font-size:15px;line-height:1.45}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--pri-l);color:var(--pri-d);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px}
+.tag.acc{background:var(--acc-l);color:#A9512E}
+.tag.ok{background:var(--ok-l);color:#2C7350}
+.sec-t{font-size:17px;font-weight:800;margin:20px 4px 10px}
+.sos-btn{width:100%;background:var(--sos);color:#fff;border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px;text-align:left;box-shadow:0 6px 16px rgba(201,72,59,.28);margin:6px 0 4px}
+.sos-btn b{font-size:17px;display:block}
+.sos-btn span{font-size:14px;opacity:.9}
+.sos-ic{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;flex:none}
+.bar{height:12px;border-radius:10px;background:var(--pri-l);overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:10px;transition:width .4s}
+.goal{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--ln)}
+.goal:first-of-type{border-top:0}
+.chk{width:26px;height:26px;border-radius:8px;border:2px solid var(--pri);display:grid;place-items:center;flex:none;transition:.2s}
+.chk.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.chk.on::after{content:'✓';font-weight:800;font-size:15px}
+.goal span{flex:1;font-size:15px}
+.goal small{color:var(--tx2);font-size:13px}
+.ages{display:flex;gap:8px;margin-bottom:14px}
+.ages button{flex:1;padding:10px 4px;border-radius:30px;background:#fff;border:1.5px solid var(--ln);font-weight:700;font-size:14px}
+.ages button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.topic{display:flex;align-items:center;gap:14px;width:100%;text-align:left}
+.topic .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;flex:none}
+.topic .tx{flex:1}
+.topic .ar{color:var(--tx2);font-size:20px}
+.tip{border-left:4px solid var(--pri);padding:4px 0 4px 14px;margin:14px 0}
+.tip b{display:block;font-size:15px;margin-bottom:3px}
+.tip p{font-size:15px;color:var(--tx2);line-height:1.5}
+.fmt{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.fmt span{font-size:13px;background:var(--bg);border-radius:20px;padding:5px 11px;color:var(--tx2);font-weight:600}
+.sit{width:100%;text-align:left;padding:14px 16px;border-radius:14px;border:2px solid var(--ln);background:#fff;margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:12px}
+.sit.on{border-color:var(--sos);background:#FBEDEB}
+.steps{counter-reset:s;list-style:none}
+.steps li{counter-increment:s;display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--ln);font-size:15px;line-height:1.45}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--sos);color:#fff;font-weight:800;display:grid;place-items:center;flex:none}
+.line{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--ln)}
+.line:first-of-type{border-top:0}
+.line .n{font-size:20px;font-weight:800;color:var(--pri);min-width:58px}
+.line div{flex:1;font-size:14px;color:var(--tx2)}
+.line div b{color:var(--tx);display:block;font-size:15px}
+.act{display:flex;gap:14px;align-items:center;width:100%;text-align:left}
+.act .th{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;font-size:30px;flex:none}
+.agree li{list-style:none;padding:10px 0;border-top:1px solid var(--ln);display:flex;gap:10px;font-size:15px}
+.agree li:first-child{border-top:0}
+.agree li::before{content:'•';color:var(--acc);font-weight:800}
+.add{display:flex;gap:8px;margin-top:10px}
+.add input{flex:1;border:1.5px solid var(--ln);border-radius:12px;padding:10px 12px;font:inherit;font-size:15px;outline:0}
+.btn{background:var(--pri);color:#fff;border-radius:12px;padding:10px 16px;font-weight:700}
+.btn.full{width:100%;padding:14px;border-radius:14px;margin-top:8px}
+.btn.ghost{background:var(--pri-l);color:var(--pri-d)}
+.empty{color:var(--tx2);text-align:center;padding:30px 10px;font-size:15px}
+nav.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;border-top:1px solid var(--ln);display:flex;padding:8px 6px calc(10px + env(safe-area-inset-bottom));z-index:10;border-radius:22px 22px 0 0;box-shadow:0 -4px 18px rgba(0,0,0,.05)}
+nav.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:700;color:var(--tx2);padding:4px 0}
+nav.tabs button svg{width:24px;height:24px}
+nav.tabs button.on{color:var(--pri)}
+nav.tabs button.on svg{stroke:var(--pri)}
+.sheet{position:fixed;inset:0;background:rgba(20,30,40,.45);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.sheet.on{display:flex}
+.sheet .in{background:#fff;width:100%;max-width:440px;border-radius:24px 24px 0 0;padding:22px 20px 30px;max-height:85vh;overflow:auto;animation:up .25s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h2{font-size:20px;font-weight:800;margin-bottom:6px}
+.grab{width:44px;height:5px;border-radius:5px;background:var(--ln);margin:-8px auto 14px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--tx);color:#fff;padding:10px 18px;border-radius:30px;font-size:14px;font-weight:700;opacity:0;transition:.3s;z-index:30;pointer-events:none}
+.toast.on{opacity:1}
+.note{font-size:12px;color:var(--tx2);text-align:center;margin-top:18px;line-height:1.4}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top" id="hdr">
+    <div class="row">
+      <button class="back" id="back" aria-label="Volver" style="display:none">‹</button>
+      <div style="flex:1">
+        <h1 id="htitle">Crianza con Amor</h1>
+        <p id="hsub">Hola, familia. ¿En qué le acompañamos hoy?</p>
+      </div>
+      <div class="logo" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.3-9.2C1.4 8.5 3.6 5 7 5c2 0 3.3 1.1 5 3 1.7-1.9 3-3 5-3 3.4 0 5.6 3.5 4.3 6.8C19.5 16.4 12 21 12 21z" fill="#E7845E"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- INICIO -->
+    <section class="screen on" id="s-inicio">
+      <label class="search"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="Escriba su duda: rabietas, celular, dormir..." autocomplete="off"></label>
+      <div id="results"></div>
+      <div id="home">
+        <button class="sos-btn" data-go="ayuda">
+          <span class="sos-ic">⚡</span>
+          <span><b>Ayuda rápida</b><span>Pasos para este momento difícil</span></span>
+        </button>
+        <div class="card">
+          <span class="tag acc">Consejo del día</span>
+          <h3 id="tipT"></h3>
+          <p id="tipP"></p>
+        </div>
+        <div class="card">
+          <span class="tag">Actividad del día</span>
+          <div class="act" data-act="0" role="button">
+            <div class="th" style="background:#FCEDE6">🍳</div>
+            <div><h3>Cocinemos juntos</h3><p>Una receta sencilla para compartir · 20 min</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tag ok">Avance de mi familia</span>
+          <h3><span id="gDone">0</span> de <span id="gTot">5</span> metas de la semana</h3>
+          <div class="bar"><i id="gBar" style="width:0"></i></div>
+          <div id="goals"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SITUACIONES -->
+    <section class="screen" id="s-situaciones">
+      <div class="ages" id="ages">
+        <button data-age="0">6-7 años</button><button data-age="1" class="on">8-9 años</button><button data-age="2">10-11 años</button>
+      </div>
+      <div id="topics"></div>
+    </section>
+
+    <!-- TEMA -->
+    <section class="screen" id="s-tema"><div id="tema"></div></section>
+
+    <!-- AYUDA RAPIDA -->
+    <section class="screen" id="s-ayuda">
+      <p class="sec-t" style="margin-top:4px">¿Qué está pasando?</p>
+      <div id="sits"></div>
+      <div class="card" id="stepsCard" style="display:none">
+        <span class="tag" style="background:#FBEDEB;color:var(--sos)">Pasos para este momento</span>
+        <ol class="steps" id="steps"></ol>
+        <button class="btn full ghost" id="calm">Respirar juntos 1 minuto</button>
+      </div>
+      <p class="sec-t">Líneas de ayuda y profesionales</p>
+      <div class="card">
+        <div class="line"><span class="n">141</span><div><b>Línea ICBF</b>Orientación y denuncia sobre la protección de niños y niñas. Gratuita, 24 horas.</div></div>
+        <div class="line"><span class="n">123</span><div><b>Línea de emergencias</b>Cuando hay riesgo inmediato para la vida o la integridad.</div></div>
+        <div class="line"><span class="n">🏛️</span><div><b>Comisaría de Familia</b>Orientación sobre conflictos familiares en su municipio.</div></div>
+      </div>
+    </section>
+
+    <!-- MI FAMILIA -->
+    <section class="screen" id="s-familia">
+      <p class="sec-t" style="margin-top:4px">Actividades en familia</p>
+      <div id="acts"></div>
+      <p class="sec-t">Rutinas y recordatorios</p>
+      <div class="card" id="routines"></div>
+      <p class="sec-t">Acuerdo familiar de pantallas</p>
+      <div class="card">
+        <p style="margin-bottom:6px">Escríbanlo juntos, con la participación de los niños y niñas, y péguenlo en un lugar visible.</p>
+        <ul class="agree" id="agree"></ul>
+        <div class="add"><input id="newA" placeholder="Nuevo acuerdo..."><button class="btn" id="addA">Agregar</button></div>
+      </div>
+      <p class="note">📶 Las actividades y pautas guardadas están disponibles sin conexión a internet.</p>
+    </section>
+    <p class="note" style="margin-top:6px">Prototipo académico · Especialización en Comunicación Digital · UNIMINUTO</p>
+  </main>
+
+  <nav class="tabs" id="tabs">
+    <button data-go="inicio" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="#5D6B75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</button>
+    <button data-go="situaciones"><svg viewBox="0 0 24 24" fill="none" stroke="#5D6B75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Situaciones</button>
+    <button data-go="ayuda"><svg viewBox="0 0 24 24" fill="none" stroke="#5D6B75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Ayuda rápida</button>
+    <button data-go="familia"><svg viewBox="0 0 24 24" fill="none" stroke="#5D6B75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 20c0-2.3 1.2-4 3-4s3 1.7 3 4"/></svg>Mi familia</button>
+  </nav>
+
+  <div class="sheet" id="sheet"><div class="in"><div class="grab"></div><div id="sheetC"></div><button class="btn full" id="sheetX">Cerrar</button></div></div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem('cca_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('cca_'+k,JSON.stringify(v))}catch(e){}}};
+
+const TIPS=[
+ ['Nombre la emoción antes de corregir','Decir «veo que estás muy enojado» ayuda a que su hijo se calme y se sienta escuchado. Después hable de la norma.'],
+ ['Pocas normas, claras y explicadas','Es más fácil cumplir tres acuerdos que se entienden que diez que cambian según el día.'],
+ ['Diez minutos solo para él o ella','Un momento corto de juego o conversación sin pantallas fortalece el vínculo y reduce los conflictos.'],
+ ['Consecuencias, no castigos','Una consecuencia acordada y relacionada con la falta enseña más que un grito o un golpe, que la ley prohíbe.'],
+ ['Usted también es ejemplo con el celular','Los niños aprenden de lo que ven: guardar el teléfono en la mesa es la mejor forma de pedirles lo mismo.']
+];
+const TOPICS=[
+ {id:'pantallas',ic:'📱',bg:'#E4EFF5',t:'Pantallas y tecnología',d:'Acuerdos, horarios y redes',f:['Video corto','Acuerdo descargable'],
+  tips:[
+   [['Anticipe el final','Avise cinco minutos antes de que termine el tiempo de pantalla y use un reloj visible.'],['Primero responsabilidades','Acuerden que el juego llega después de tareas y comida, todos los días igual.'],['Contenidos acompañados','Revise con su hijo los videos y juegos que usa; mejor juntos que a escondidas.']],
+   [['Acuerdo escrito','Escriban juntos cuánto tiempo, dónde y cuándo se usan las pantallas, y péguenlo en la nevera.'],['Sin pantallas en la mesa ni en la cama','Los dispositivos duermen fuera del cuarto: mejora el sueño y la conversación.'],['Ofrezca alternativas','Al apagar, proponga algo concreto: un juego de mesa, salir al parque o ayudar a cocinar.']],
+   [['Converse sobre riesgos','Hablen de contenidos inapropiados, desconocidos y compras dentro de los juegos, sin asustar.'],['Configure juntos','Activen controles parentales y explíquele para qué sirven: protección, no espionaje.'],['Redes sociales con calma','La mayoría de redes exige 13 años o más; explíquele por qué y acompañe sus primeros pasos.']]]},
+ {id:'emociones',ic:'💛',bg:'#FCEDE6',t:'Emociones y rabietas',d:'Frustración, enojo y tristeza',f:['Pasos breves','Actividad práctica'],
+  tips:[
+   [['Calma primero','Durante la rabieta no hay explicación que sirva: acompañe en silencio y espere a que baje la intensidad.'],['Póngale nombre','Ayúdele a decir «estoy furioso» o «estoy triste»; nombrar la emoción la hace manejable.'],['Rincón de la calma','Un lugar con cojines y un cuento donde pueda ir cuando se sienta desbordado.']],
+   [['Valide sin ceder','«Entiendo que te moleste perder; el juego igual terminó». La emoción es válida, la norma se mantiene.'],['Enséñele a respirar','Inflar un globo imaginario cuatro veces ayuda a bajar el enojo.'],['Celebre el esfuerzo','Destaque cuánto se esforzó, no solo si ganó o le salió bien.']],
+   [['Escuche sin juzgar','Pregunte «¿qué pasó?» antes de dar consejos; a esta edad necesitan sentirse comprendidos.'],['Tristeza y cambios','Si la tristeza dura varias semanas o afecta el colegio, busque orientación profesional.'],['Hable de sus propias emociones','Contarle cómo usted maneja el enojo le da un modelo para hacerlo.']]]},
+ {id:'normas',ic:'🧭',bg:'#E3F3EA',t:'Normas y límites',d:'Que haga caso sin gritos ni golpes',f:['Lectura breve','Imagen con consejos'],
+  tips:[
+   [['Una instrucción a la vez','Acérquese, mírelo a los ojos y dé una sola instrucción corta: «guarda los juguetes en la caja».'],['Rutinas con dibujos','Una cartelera con dibujos de la rutina evita repetir la misma orden muchas veces.'],['Reconozca lo que hace bien','Felicite cuando cumple; los niños repiten lo que se nota.']],
+   [['Del «ya voy» al «ahora»','Acuerde un tiempo concreto: «cuando termine este capítulo, apagas». Y cúmplalo.'],['Consecuencia acordada','Defínanla antes del problema, que sea relacionada con la falta y proporcional.'],['Firmeza con cariño','Hable con voz tranquila y firme; gritar enseña a gritar.']],
+   [['Normas negociadas','A esta edad pueden participar en definir algunas reglas; así las sienten propias.'],['Explique el porqué','Las razones ayudan a que entienda la norma y no solo la obedezca.'],['Coherencia entre adultos','Padres, abuelos y cuidadores deben aplicar los mismos acuerdos.']]]},
+ {id:'rutinas',ic:'⏰',bg:'#EEE9F7',t:'Rutinas y responsabilidades',d:'Tareas, sueño, comida y orden',f:['Recordatorios','Lista para marcar'],
+  tips:[
+   [['Hora fija para dormir','Baño, cuento y luz apagada a la misma hora le ayudan a dormir sin pelear.'],['Pequeñas tareas en casa','Poner la mesa o guardar su ropa le da autonomía y confianza.'],['Comidas sin presión','Ofrezca variedad sin obligar; coman juntos y sin pantallas.']],
+   [['Lugar y hora para las tareas','Un espacio tranquilo, siempre a la misma hora, reduce la resistencia.'],['Listas para marcar','Una lista de la mañana evita el caos antes del colegio.'],['Responsabilidades a su medida','Asigne una tarea fija de la casa acorde con su edad.']],
+   [['Organización del tiempo','Ayúdele a planear la semana: estudio, juego y descanso.'],['Autonomía progresiva','Deje que se haga cargo de su maleta y útiles, aunque a veces olvide algo.'],['Sueño suficiente','Entre 9 y 11 horas de sueño ayudan a la concentración y al ánimo.']]]},
+ {id:'colegio',ic:'🎒',bg:'#FFF4D9',t:'Colegio y amigos',d:'Acoso escolar y amistades',f:['Video corto','Ruta de ayuda'],
+  tips:[
+   [['Pregunte por su día','Preguntas concretas como «¿con quién jugaste hoy?» abren la conversación.'],['Practique cómo pedir ayuda','Ensayen qué decirle a la profesora si alguien lo molesta.'],['Compartir y turnarse','Jueguen en casa a esperar turnos y prestar juguetes.']],
+   [['Señales de acoso','Cambios de ánimo, no querer ir al colegio o pertenencias dañadas pueden ser señales.'],['Crea en su relato','Si cuenta que lo molestan, escúchelo con calma y hable con el colegio.'],['Defenderse con respeto','Enséñele a decir «no me gusta, detente» y a alejarse.']],
+   [['Amistades y presión de grupo','Hablen de cómo decir «no» cuando el grupo propone algo con lo que no está de acuerdo.'],['Acoso en línea','Si recibe burlas por redes o chats, guarden la evidencia y repórtenlo.'],['Ruta de atención','El colegio tiene un comité de convivencia escolar para estos casos.']]]}
+];
+const SITS=[
+ {ic:'😤',t:'Rabieta o pataleta',s:['Respire profundo y baje el tono de su voz antes de actuar.','Póngase a su altura y nombre lo que siente: «estás muy enojado».','Quédese cerca y mantenga la seguridad; no es el momento de explicar.','Cuando se calme, recuerden juntos el acuerdo y busquen una solución.']},
+ {ic:'📱',t:'No quiere dejar la pantalla',s:['Recuerde con voz tranquila el acuerdo y el tiempo que ya pasó.','Ofrezca dos opciones: «la apagas tú o la apago yo».','Si no la apaga, aplique la consecuencia acordada, sin gritar.','Proponga una actividad concreta para después.']},
+ {ic:'🤼',t:'Pelea entre hermanos',s:['Separe a los niños con calma si hay riesgo de golpes.','Escuche a cada uno por turnos, sin buscar culpables.','Ayúdeles a decir qué necesita cada uno.','Pídales que propongan una solución y acompáñenla.']},
+ {ic:'🙉',t:'No hace caso',s:['Acérquese, mírelo a los ojos y diga su nombre.','Dé una sola instrucción corta y clara.','Pídale que la repita para confirmar que la entendió.','Si no la cumple, aplique la consecuencia acordada y reconozca cuando la cumpla.']}
+];
+const ACTS=[
+ {ic:'🍳',bg:'#FCEDE6',t:'Cocinemos juntos',d:'Receta sencilla · 20 min',s:['Elijan juntos una receta fácil, como arepas o ensalada de frutas.','Asígnele tareas según su edad: lavar, mezclar, decorar.','Conversen mientras cocinan: ¿qué fue lo mejor del día?','Coman juntos y sin pantallas.']},
+ {ic:'🎭',bg:'#E4EFF5',t:'El juego de las emociones',d:'Video corto · 10 min',s:['Escriban emociones en papelitos: alegría, enojo, miedo, tristeza.','Por turnos, cada uno saca uno y lo actúa sin hablar.','Los demás adivinan y cuentan cuándo la han sentido.','Cierren pensando qué ayuda cuando aparece esa emoción.']},
+ {ic:'🌳',bg:'#E3F3EA',t:'Caminata de los sentidos',d:'Actividad práctica · 30 min',s:['Salgan al parque o al barrio sin celular.','Busquen cinco cosas que se vean, cuatro que se oigan y tres que se toquen.','Dejen que su hijo guíe parte del recorrido.','Al regresar, dibujen lo que más les gustó.']}
+];
+const GOALS=['Cenar juntos sin pantallas 3 veces','10 minutos de juego al día','Escribir el acuerdo de pantallas','Leer un cuento antes de dormir','Felicitarlo por algo que hizo bien'];
+const ROUT=[['Tareas del colegio','4:00 p. m.'],['Tiempo de pantalla','1 hora'],['Baño y pijama','7:45 p. m.'],['Hora de dormir','8:30 p. m.']];
+
+let age=store.get('age',1), hist=[], cur='inicio';
+const titles={inicio:['Crianza con Amor','Hola, familia. ¿En qué le acompañamos hoy?'],situaciones:['Situaciones','Pautas según la edad de su hijo(a)'],ayuda:['Ayuda rápida','Pasos para actuar con calma y firmeza'],familia:['Mi familia','Actividades, rutinas y acuerdos']};
+
+function go(s,push=true){
+  if(push && s!==cur) hist.push(cur);
+  cur=s;
+  $$('.screen').forEach(e=>e.classList.toggle('on',e.id==='s-'+s));
+  const base=s==='tema'?'situaciones':s;
+  $$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.go===base));
+  if(titles[s]){$('#htitle').textContent=titles[s][0];$('#hsub').textContent=titles[s][1]}
+  $('#back').style.display=(s==='inicio')?'none':'grid';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$('#back').onclick=()=>{const p=hist.pop()||'inicio'; go(p,false)};
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){ if(g.closest('#tabs')) hist=[]; go(g.dataset.go)}
+  const a=e.target.closest('[data-act]'); if(a) openAct(+a.dataset.act);
+  const t=e.target.closest('[data-topic]'); if(t) openTopic(t.dataset.topic);
+});
+
+// inicio
+const day=new Date().getDate()%TIPS.length;
+$('#tipT').textContent=TIPS[day][0]; $('#tipP').textContent=TIPS[day][1];
+let gs=store.get('goals',[true,false,true,false,false]);
+function drawGoals(){
+  $('#goals').innerHTML=GOALS.map((g,i)=>`<div class="goal"><button class="chk ${gs[i]?'on':''}" data-g="${i}" aria-label="Marcar meta"></button><span>${g}</span></div>`).join('');
+  const n=gs.filter(Boolean).length; $('#gDone').textContent=n; $('#gTot').textContent=GOALS.length; $('#gBar').style.width=(100*n/GOALS.length)+'%';
+}
+$('#goals').addEventListener('click',e=>{const b=e.target.closest('[data-g]'); if(!b) return; gs[+b.dataset.g]=!gs[+b.dataset.g]; store.set('goals',gs); drawGoals(); if(gs.every(Boolean)) toast('¡Lograron todas las metas de la semana! 🎉')});
+drawGoals();
+
+// buscador
+const IDX=[]; TOPICS.forEach(t=>t.tips.forEach((a,ai)=>a.forEach(([h,p])=>IDX.push({t,ai,h,p}))));
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+$('#q').addEventListener('input',e=>{
+  const q=norm(e.target.value.trim());
+  if(q.length<3){$('#results').innerHTML='';$('#home').style.display='';return}
+  const syn={celular:'pantalla',tablet:'pantalla',videojuego:'pantalla',dormir:'sueno',rabieta:'calma',pataleta:'calma',caso:'instruccion',bullying:'acoso'};
+  const terms=[q,...Object.entries(syn).filter(([k])=>q.includes(k)).map(([,v])=>v)];
+  const r=IDX.filter(x=>terms.some(w=>norm(x.h+' '+x.p+' '+x.t.t).includes(w))).slice(0,6);
+  $('#home').style.display='none';
+  $('#results').innerHTML=r.length?r.map(x=>`<div class="card"><span class="tag">${x.t.t} · ${['6-7','8-9','10-11'][x.ai]} años</span><h3>${x.h}</h3><p>${x.p}</p></div>`).join(''):'<p class="empty">No encontramos resultados. Pruebe con otra palabra o vaya a Situaciones.</p>';
+});
+
+// situaciones
+function drawAges(){$$('#ages button').forEach(b=>b.classList.toggle('on',+b.dataset.age===age))}
+$('#ages').addEventListener('click',e=>{const b=e.target.closest('[data-age]'); if(!b) return; age=+b.dataset.age; store.set('age',age); drawAges(); toast('Contenidos para '+b.textContent)});
+$('#topics').innerHTML=TOPICS.map(t=>`<div class="card"><button class="topic" data-topic="${t.id}"><span class="ic" style="background:${t.bg}">${t.ic}</span><span class="tx"><h3>${t.t}</h3><p>${t.d}</p></span><span class="ar">›</span></button></div>`).join('');
+drawAges();
+function openTopic(id){
+  const t=TOPICS.find(x=>x.id===id);
+  $('#tema').innerHTML=`<div class="card"><span class="tag">${['6-7','8-9','10-11'][age]} años</span><h3 style="font-size:19px">${t.ic} ${t.t}</h3>
+   ${t.tips[age].map(([h,p])=>`<div class="tip"><b>${h}</b><p>${p}</p></div>`).join('')}
+   <div class="fmt">${t.f.map(x=>`<span>${x}</span>`).join('')}</div></div>
+   <button class="btn full ghost" id="save">Guardar para ver sin conexión</button>`;
+  $('#save').onclick=()=>toast('Guardado en su dispositivo ✓');
+  go('tema'); $('#htitle').textContent=t.t; $('#hsub').textContent='Pautas de crianza amorosa, respetuosa y con normas';
+}
+
+// ayuda rapida
+$('#sits').innerHTML=SITS.map((s,i)=>`<button class="sit" data-s="${i}"><span style="font-size:22px">${s.ic}</span>${s.t}</button>`).join('');
+$('#sits').addEventListener('click',e=>{const b=e.target.closest('[data-s]'); if(!b) return;
+  $$('.sit').forEach(x=>x.classList.toggle('on',x===b));
+  $('#steps').innerHTML=SITS[+b.dataset.s].s.map(x=>`<li>${x}</li>`).join('');
+  $('#stepsCard').style.display='block'; $('#stepsCard').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('#calm').onclick=()=>sheet(`<h2>Respiremos juntos</h2><p style="color:var(--tx2);margin-bottom:18px">Inhale mientras el círculo crece y exhale cuando se encoge. Pueden hacerlo con su hijo(a).</p>
+  <div style="display:grid;place-items:center;height:200px"><div id="breath" style="width:80px;height:80px;border-radius:50%;background:var(--pri-l);border:4px solid var(--pri);transition:all 4s ease-in-out"></div></div><p id="bt" style="text-align:center;font-weight:800;font-size:18px">Inhale…</p>`,()=>{
+  let big=false; const f=()=>{const b=$('#breath'); if(!b) return clearInterval(window._bi); big=!big; b.style.width=b.style.height=big?'170px':'80px'; $('#bt').textContent=big?'Inhale…':'Exhale…'}; f(); window._bi=setInterval(f,4000)});
+
+// familia
+$('#acts').innerHTML=ACTS.map((a,i)=>`<div class="card"><div class="act" data-act="${i}" role="button"><div class="th" style="background:${a.bg}">${a.ic}</div><div><h3>${a.t}</h3><p>${a.d}</p></div></div></div>`).join('');
+function openAct(i){const a=ACTS[i]; sheet(`<h2>${a.ic} ${a.t}</h2><p style="color:var(--tx2)">${a.d}</p><ol class="steps" style="margin-top:10px">${a.s.map(x=>`<li>${x}</li>`).join('')}</ol>`)}
+let rs=store.get('rout',[true,false,false,false]);
+function drawR(){$('#routines').innerHTML=ROUT.map((r,i)=>`<div class="goal"><button class="chk ${rs[i]?'on':''}" data-r="${i}" aria-label="Marcar rutina"></button><span>${r[0]}</span><small>🔔 ${r[1]}</small></div>`).join('')}
+$('#routines').addEventListener('click',e=>{const b=e.target.closest('[data-r]'); if(!b) return; rs[+b.dataset.r]=!rs[+b.dataset.r]; store.set('rout',rs); drawR()});
+drawR();
+let ag=store.get('agree',['Sin celular en la mesa','Pantallas apagadas a las 8:00 p. m.','Primero tareas, después videojuegos']);
+function drawA(){$('#agree').innerHTML=ag.map(x=>`<li>${x.replace(/</g,'&lt;')}</li>`).join('')}
+$('#addA').onclick=()=>{const v=$('#newA').value.trim(); if(!v) return; ag.push(v); store.set('agree',ag); $('#newA').value=''; drawA(); toast('Acuerdo agregado ✓')};
+drawA();
+
+// utilidades
+function sheet(html,after){$('#sheetC').innerHTML=html; $('#sheet').classList.add('on'); if(after) after()}
+$('#sheetX').onclick=()=>{$('#sheet').classList.remove('on'); clearInterval(window._bi)};
+$('#sheet').onclick=e=>{if(e.target.id==='sheet'){$('#sheet').classList.remove('on'); clearInterval(window._bi)}};
+let tt; function toast(m){const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2200)}
+window.addEventListener('message',e=>{const s=e.data&&e.data.go; if(s&&titles[s]){hist=[];go(s,false)}});
+const start=new URLSearchParams(location.search).get('s'); if(start&&titles[start]) go(start,false);
+</script>
+</body>
+</html>
